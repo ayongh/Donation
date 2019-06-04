@@ -21,26 +21,18 @@ function alert($msg)
 <?php
     // update data
     if(isset($_POST['btnupdate'])){
-        $id = $_GET['upd'];
-		alert ($id);
-		$FirstName = $_POST['FirstName'];
-        $LastName = $_POST['LastName'];
-        $Contact = $_POST['Contact'];
-		$Address1 = $_POST['Address1'];
-		$Address2 = $_POST['Address2'];
-		$City = $_POST['City'];
-        $State = $_POST['State'];
-        $Zip = $_POST['Zip'];
-		
-		alert($State);
-		
-        $query = "UPDATE donator_info SET 
-		FirstName = '$FirstName',LastName = '$LastName',
-		PhoneNumber = '$Contact',Address1 = '$Address1', Address2= '$Address2', City = '$City', State = '$State', Zip = '$Zip'
-		WHERE DonatorID=$id";
+        $id = $_GET['his'];
+		$his = $_GET['tranupd'];
+		$iteamID = $_POST['iteamID'];
+        $iteamType = $_POST['iteamType'];
+        $iteamAmount = $_POST['iteamAmount'];
+		$dateDonated = $_POST['dateDonated'];
+		$reciptNum = $_POST['reciptnumber'];
+				
+        $query = "UPDATE donated_iteams SET Iteam_type = '$iteamType', Amount_of_iteam = '$iteamAmount', date_Donated= '$dateDonated', ReciptNumber='$reciptNum'  WHERE iteamID = '$iteamID'";
         $fire = mysqli_query($con,$query) or die("Can not update the data. ".mysqli_error($con));
 
-        if($fire) header("Location:home.php");
+        if($fire) header("Location:transaction.php?his=".$id);
 
     }
 ?>
@@ -80,9 +72,9 @@ function alert($msg)
 		
 		<?php
 			// get update variables
-			if(isset($_GET['upd'])){
-				$id = $_GET['upd'];
-				$query = "SELECT * FROM donator_info WHERE DonatorID=$id";
+			if(isset($_GET['tranupd'])){
+				$id = $_GET['tranupd'];
+				$query = "SELECT * FROM donated_iteams WHERE iteamID=$id";
 				$fire = mysqli_query($con,$query) or die("Can not fetch the data.".mysqli_error($con));
 				$user = mysqli_fetch_assoc($fire);  
 			}
@@ -95,52 +87,32 @@ function alert($msg)
 				<hr>
 				
                 <form name="signup" id="signup" action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
-					<div class = "form-row">
-						<div class="form-group col-md-6">
-							<label  for="FirstName">First Name</label>
-							<input  name="FirstName" id="FirstName" type="text" class="form-control" value = "<?php echo $user["FirstName"]?>">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="LastName">Last Name</label>
-							<input name="LastName" id="LastName" type="text" class="form-control" value = "<?php echo $user["LastName"]?>">
-						</div>
-					</div>
-					
+				
 					<div class="form-group">
-						<label for="Contact">Contact</label>
-						<input name="Contact" id="Contact" type="text" class="form-control" value = "<?php echo $user["PhoneNumber"]?>">
-					</div>
-					
-					<div class="form-group">
-						<label for="Address1">Address 1 </label>
-						<input name="Address1" id="Address1" type="text" class="form-control" value = "<?php echo $user["Address1"]?>" >
-					</div>
-					<div class="form-group">
-						<label for="Address2">Address2</label>
-						<input name="Address2" id="Address2" type="text" class="form-control" value = "<?php echo $user["Address2"]?>" >
+						<label  for="iteamType">Iteam ID</label>
+						<input  name="iteamID" id="iteamID" type="text" class="form-control" value = "<?php echo $user["iteamID"]?>" readonly>
 					</div>
 					
 					<div class = "form-row">
 						<div class="form-group col-md-6">
-							<label for="City">City</label>
-							<input name="City" id="City" type="text" class="form-control" value = "<?php echo $user["City"]?>" >
+							<label  for="iteamType">Iteam Type</label>
+							<input  name="iteamType" id="iteamType" type="text" class="form-control" value = "<?php echo $user["Iteam_type"]?>">
 						</div>
 						
-						<div class="form-group col-md-4">
-						  <label for="State">State</label>
-						  <select id="State" name ="State" class="form-control">
-							<option selected><?php echo $user["State"]?></option>
-							<option>MD</option>
-							<option>PA</option>
-							<option>VA</option>
-							<option>GA</option>
-						  </select>
+						<div class="form-group col-md-6">
+							<label for="iteamAmount">Iteam Amount</label>
+							<input name="iteamAmount" id="iteamAmount" type="text" class="form-control" value = "<?php echo $user["Amount_of_iteam"]?>">
 						</div>
-						
-						<div class="form-group col-md-2">
-							<label for="Zip">Zip</label>
-							<input name="Zip" id="Zip" type="text" class="form-control" value = "<?php echo $user["Zip"]?>">
-						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="dateDonated">Date Doated</label>
+						<input name="dateDonated" id="dateDonated" type="text" class="form-control" value = "<?php echo $user["date_Donated"]?>">
+					</div>
+					
+					<div class="form-group">
+						<label  for="iteamType">Recipt Number</label>
+						<input  name="reciptnumber" id="reciptnumber" type="text" class="form-control" value = "<?php echo $user["ReciptNumber"]?>">	
 					</div>
 					
 					<div class="form-group">                            

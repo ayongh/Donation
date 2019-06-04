@@ -44,6 +44,7 @@ function alert($msg)
 		<nav class="navtop">
 			<div>
 				<h1 style="padding-left:10px;"><i class="fas fa-user-circle"></i> Welcome, <?=$_SESSION['name']?>!</h1>
+				<a href="home.php"><i class="fas fa-user-plus"></i>Home</a>
 				<a href="profile.php"><i class="fas fa-user-circle"></i>Profile</a>
 				<a href="logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
 			</div>
@@ -73,7 +74,7 @@ function alert($msg)
 							<h3>Donator Data</h3>
 							<hr>
 							<div class="table-responsive">
-								<table class="table table-striped">
+								<table class="table table-striped ">
 									<thead>
 										<tr>
 											<th>First Name</th>

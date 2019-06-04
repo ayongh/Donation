@@ -1,0 +1,1 @@
+ALTER TABLE `donated_iteams` CHANGE `ReciptNumber` `ReciptNumber` VARCHAR(99) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;

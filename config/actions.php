@@ -70,11 +70,11 @@ function alert($msg)
 		$iteamType = mysqli_real_escape_string($con,trim($_GET['iteamType']));
 		$iteamAmount = $_GET['iteamAmount'];
 		$DonatorID= $_GET['donatorID'];
+		$reciptNumber= $_GET['reciptnumber'];
 		$transactionholder = mysqli_real_escape_string($con,trim($_SESSION['name']));
 		
-		alert($iteamAmount +1);
-		$query = "INSERT INTO donated_iteams(Iteam_type,Amount_of_iteam,date_Donated,donatorID,accountID) 
-		VALUES('$iteamType',$iteamAmount,CURRENT_TIME(),$DonatorID, '$transactionholder')";
+		$query = "INSERT INTO donated_iteams(Iteam_type,Amount_of_iteam,date_Donated,donatorID,accountID,ReciptNumber) 
+		VALUES('$iteamType',$iteamAmount,CURRENT_TIME(),$DonatorID, '$transactionholder', '$reciptNumber')";
 		$fire = mysqli_query($con,$query) or die("Can not insert data into database. ".mysqli_error($con));
 		
 		 if($fire) 
@@ -82,5 +82,20 @@ function alert($msg)
 			$msg = "Data inserted successfully";
 			header("Location: ../transaction.php?his=".$DonatorID);
 		}
+	}
+?>
+
+<?php
+	//Transaction Delete 
+	if(isset($_GET['trandel']))
+	{
+		$id = $_GET['trandel'];
+		$DonatorID= $_GET['his'];
+		$query = "DELETE FROM donated_iteams WHERE iteamID = $id";
+		$fire = mysqli_query($con,$query) or die("Can not delete the data from database.". mysqli_error($con));
+		if($fire) {
+			echo "Data deleted from database";
+			header("Location:../transaction.php?his=".$DonatorID);
+		};
 	}
 ?>
